@@ -4,7 +4,7 @@ import numpy as np
 import sys
 import matplotlib.pyplot as plt
 from astropy.stats import mad_std
-from utils import isAlias
+from utils import isAlias, Grid4
 
 name = np.genfromtxt(sys.argv[1], usecols=(0,), dtype='string')
 chi1, chi3, p, fap = np.genfromtxt(sys.argv[1], usecols=(1,2,3,4), unpack=True)
@@ -25,11 +25,16 @@ acols = ['#017d3f' if not al  else '#a4142a' for al in alias]
 row = int(np.ceil(len(name)/5.0))
 
 #Plot
-fig, ax = plt.subplots(ncols=5, nrows=row, figsize=[3*6, 3*row*3/5.0], sharex=True)
-aa      = np.ravel(ax)
+#fig, ax = plt.subplots(ncols=5, nrows=row, figsize=[3*6, 3*row*3/5.0], sharex=True)
+#aa      = np.ravel(ax)
+fig = plt.figure(figsize=[15,2])
 
 for i in range(len(name)):
-    a = aa[i]
+    row = i / 5
+    col = i % 5
+    ax1, ax2, ax3, ax4 = Grid4(row, col)
+
+    a = ax1
     l = name[i]
     t,m,e = np.genfromtxt(l, unpack=True, usecols=(0,1,2))
     ph    = t / p[i] % 1.0
