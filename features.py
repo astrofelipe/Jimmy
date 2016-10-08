@@ -12,4 +12,4 @@ def p2p_scatter_pfold_over_mad(t, f, P):
 
     num = np.sum(np.abs(np.diff(f)))
 
-    return num / MAD
+    return num / ((N-1)*MAD)
